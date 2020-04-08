@@ -1,0 +1,24 @@
+{
+  "name": "4pics-suggester-server",
+  "version": "1.0.0",
+  "description": "The backend server for the app 4pics-suggester, built with Node, Express, Mongodb.",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "keywords": [
+    "4pics",
+    "4pics-suggester"
+  ],
+  "author": "Issam Assafi",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.5"
+  }
+}

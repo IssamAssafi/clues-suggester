@@ -1,0 +1,29 @@
+GET http://localhost:777/proposals/
+
+###
+
+GET http://localhost:777/proposals/
+
+###
+
+POST http://localhost:777/proposals/
+Content-Type: application/json
+
+{
+    "character":"Naruto",
+    "anime":"Naruto Shippuden",
+    "category":"Shinobi",
+    "author":"ImaD",
+    "clues":[
+        {"text":"The first clue","img":""},
+        {"text":"This must be the second","img":""},
+        {"text":"Defintely the third hint","img":""},
+        {"text":"And Finally the fourth wich makes it easy to guess","img":""}
+        ]
+}
+
+###
+
+GET http://localhost:777/proposals/zouhaiR
+
+###

@@ -6,7 +6,8 @@ const proposalSchema = new mongoose.Schema({
     anime: String,
     category: String,
     clues: [{ text: String, img: String }],
-    author: String
+    author: String,
+    status: String
 });
 
 

@@ -4,10 +4,12 @@ import Collapse from './Collapse';
 
 const Clue = ({ order, text, img }) => {
     const clueTitle = `Clue ${order}`;
+    const clueText = text ? text.toUpperCase() : "";
+    const isValidImg = img && (img.endsWith(".png") || img.endsWith(".jpg") || img.endsWith(".jpeg"))
     return (
         <Collapse title={clueTitle}>
-            <CollapseText>{text.toUpperCase()}</CollapseText>
-            {img && <CollapseImage src={img} />}
+            <CollapseText>{clueText}</CollapseText>
+            {isValidImg && <CollapseImage src={img} />}
         </Collapse>
     )
 }

@@ -4,7 +4,7 @@
   "description": "The backend server for the app 4pics-suggester, built with Node, Express, Mongodb.",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server.js",
+    "devStart": "nodemon server.js"
   },
   "keywords": [
     "4pics",

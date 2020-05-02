@@ -24,6 +24,25 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:777/proposals/zouhaiR
+PATCH http://localhost:777/proposals/5e8b4dff8f01b4b06b5403ed
+Content-Type: application/json
+
+{
+    "character":"NEW",
+    "anime":"NEW NEW",
+    "category":"Shinobi",
+    "author":"ImaD",
+    "clues":[
+        {"text":"The first clue","img":""},
+        {"text":"This must be the second","img":""},
+        {"text":"Defintely the third hint","img":""},
+        {"text":"And Finally the fourth wich makes it easy to guess","img":""}
+        ]
+}
+###
+
+GET http://localhost:777/proposals/admin
 
 ###
+
+DELETE http://localhost:777/proposals/5e7630a8b04eadd69cf37f4b

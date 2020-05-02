@@ -32,7 +32,8 @@ router.post('/', async (req, res) => {
         anime: req.body.anime,
         category: req.body.category,
         clues: req.body.clues,
-        author: req.body.author.toLowerCase()
+        author: req.body.author.toLowerCase(),
+        status: req.body.status
     })
 
     try {
@@ -44,9 +45,26 @@ router.post('/', async (req, res) => {
 });
 
 //Update proposal
-router.patch('/:id', (req, res) => {
-
+router.patch('/:id', async (req, res) => {
+    Proposal.findByIdAndUpdate(req.params.id, req.body, { new: true },
+        (err, proposal) => {
+            if (err) return res.status(500).send(err);
+            return res.send(proposal);
+        }
+    )
 });
+
+//Delete proposal
+router.delete('/:id', async (req, res) => {
+    try {
+        await Proposal.findByIdAndDelete(req.params.id);
+        console.log("success");
+        res.status(201).end();
+    } catch (e) {
+        print(e);
+    }
+
+})
 
 
 

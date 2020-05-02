@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
 import Proposal from './Proposal';
+import API_URL from './../calls/config';
 
-const API_URL = "http://localhost:777/proposals";
 
-const ProposalsList = ({ username, proposals, setProposals }) => {
+
+const ProposalsList = ({ username, proposals, setProposals, removeProposal, showEditingForm }) => {
     //const [proposals, setProposals] = useState([]);
 
     const getAllProposals = async () => {
@@ -17,6 +18,7 @@ const ProposalsList = ({ username, proposals, setProposals }) => {
             console.log(error);
         }
     }
+
     useEffect(() => {
         console.log("hey there")
         getAllProposals("");
@@ -27,7 +29,11 @@ const ProposalsList = ({ username, proposals, setProposals }) => {
 
         <ListContainer>
             {proposals && proposals.map(proposal => (
-                <Proposal clues={proposal.clues} character={proposal.character} anime={proposal.anime} />
+                <Proposal
+                    proposal={proposal}
+                    removeProposal={removeProposal}
+                    showEditingForm={showEditingForm}
+                />
             ))}
         </ListContainer>
 

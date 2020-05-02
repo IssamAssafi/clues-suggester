@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
@@ -9,24 +9,24 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import { AddCircle } from '@styled-icons/material/AddCircle';
+// import { AddCircle } from '@styled-icons/material/AddCircle';
 
 
-export const Form = ({ addProposal }) => {
+export const Form = ({ open, closeForm, defaultProposal, addProposal, editing, editProposal }) => {
 
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => { setOpen(true); };
-    const handleClose = () => { setOpen(false); };
-    const handleConfirm = () => { addProposal(proposal); handleClose(); }
+    // const [open, setOpen] = React.useState(false);
+    // const handleClickOpen = () => { setOpen(true); };
+    //const handleClose = () => { setOpen(false); };
+    const handleConfirm = () => {
+        editing ? editProposal(defaultProposal._id, proposal) : addProposal(proposal);
+        closeForm();
+    }
 
-    const [proposal, setProposal] = useState({
-        character: '',
-        anime: '',
-        clues: [],
-        author: localStorage.getItem('username'),
-        category: '',
-        status: 'review'
-    })
+    const [proposal, setProposal] = useState(defaultProposal);
+    useEffect(() => {
+        setProposal(defaultProposal);
+    }, [defaultProposal])
+
     const updateClue = (clue, index) => {
         let newClues = [...proposal.clues];
         newClues[index] = clue;
@@ -46,42 +46,29 @@ export const Form = ({ addProposal }) => {
     return (
 
         <>
-            <AddIcon onClick={handleClickOpen} />
-            <Dialog fullWidth={true} maxWidth={'md'} onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-                <MuiDialogTitle id="customized-dialog-title" onClose={handleClose}>
+            {/* <AddIcon onClick={handleClickOpen} /> */}
+            <Dialog fullWidth={true} maxWidth={'md'} onClose={closeForm} aria-labelledby="customized-dialog-title" open={open}>
+                <MuiDialogTitle id="customized-dialog-title" onClose={closeForm}>
                     Add a new proposal
             </MuiDialogTitle>
                 <MuiDialogContent dividers>
                     <FormElementsWrapper>
                         <Row>
-                            <Autocomplete
-                                freeSolo
-                                options={['Freizer']}
-                                renderInput={params => (
-                                    <StyledInput
-                                        {...params}
-                                        key={uuidv4}
-                                        label="Character Name"
-                                        margin="normal"
-                                        variant="outlined"
-                                        onChange={e => setProposal({ ...proposal, character: e.target.value })}
-                                    />
-                                )}
+                            <StyledInput
+                                key={uuidv4}
+                                label="Character Name"
+                                margin="normal"
+                                variant="outlined"
+                                defaultValue={defaultProposal.character}
+                                onChange={e => setProposal({ ...proposal, character: e.target.value })}
                             />
-
-                            <Autocomplete
-                                freeSolo
-                                options={['Dragon Ball']}
-                                renderInput={params => (
-                                    <StyledInput
-                                        {...params}
-                                        key={uuidv4}
-                                        label="Anime"
-                                        margin="normal"
-                                        variant="outlined"
-                                        onChange={e => setProposal({ ...proposal, anime: e.target.value })}
-                                    />
-                                )}
+                            <StyledInput
+                                key={uuidv4}
+                                label="Anime"
+                                margin="normal"
+                                variant="outlined"
+                                defaultValue={defaultProposal.anime}
+                                onChange={e => setProposal({ ...proposal, anime: e.target.value })}
                             />
                         </Row>
                         <StyledButton onClick={e => { addClue() }} variant="contained" size="large" color="primary" >
@@ -98,7 +85,7 @@ export const Form = ({ addProposal }) => {
                     </FormElementsWrapper>
                 </MuiDialogContent>
                 <MuiDialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={closeForm} color="primary">
                         Cancel
                     </Button>
                     <Button variant="contained" onClick={handleConfirm} color="primary">
@@ -133,12 +120,12 @@ const FormContainer = ({ children, proposal, addProposal }) => {
     );
 }
 
-const AddIcon = styled(AddCircle)`
-    width:33px;
-    color: green;
-    position: relative;
-    bottom: 5px;
-`;
+// const AddIcon = styled(AddCircle)`
+//     width:33px;
+//     color: green;
+//     position: relative;
+//     bottom: 5px;
+// `;
 
 const StyledButton = styled(Button)`
   &&{
